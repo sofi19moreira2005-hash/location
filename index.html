@@ -1,38 +1,67 @@
+
+<!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Texto numa localização GPS</title>
-    <!-- estilos da página -->
-    <link rel="stylesheet" href="styles.css" />
-    <!-- A-Frame e AR.js (versão com localização) em versões fixas -->
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.8/aframe/build/aframe-ar.js"></script>
-  </head>
-  <body>
-    <!-- sourceWidth/sourceHeight: resolução pedida à câmara; por omissão é 640x480, o que deixa o vídeo desfocado -->
-    <!-- videoTexture: false: o vídeo aparece por trás da cena e mantém a proporção; com true era esticado e ficava deformado -->
-    <a-scene
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; videoTexture: false; debugUIEnabled: false; sourceWidth: 1280; sourceHeight: 960;"
-    >
-      <!-- simulateLatitude/simulateLongitude substituem o GPS real: o utilizador fica sempre nesta posição -->
-      <a-camera
-        gps-camera="simulateLatitude: 51.049; simulateLongitude: -0.723"
-        rotation-reader
-      ></a-camera>
-      <!-- texto colocado numa latitude/longitude, perto da posição simulada -->
-      <!-- não pode ter as mesmas coordenadas da câmara: ficaria a 0 m, dentro da câmara, e não se via -->
-      <!-- latitude + 0.0001 fica cerca de 11 m para norte da câmara -->
-      <!-- scale 6: a 11 m de distância, o texto fica com um tamanho que cabe no ecrã -->
-      <!-- align center: o texto fica centrado no ponto, em vez de começar nele e sair do ecrã pela direita -->
-      <a-text
-        value="Ola Mundo!"
-        scale="6 6 6"
-        align="center"
-        color="#ff0000"
-        gps-entity-place="latitude: 51.0491; longitude: -0.723;"
-      ></a-text>
-    </a-scene>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Objetos 3D com localização GPS</title>
+
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.8/aframe/build/aframe-ar.js"></script>
+</head>
+
+<body>
+  <a-scene
+    vr-mode-ui="enabled: false"
+    arjs="sourceType: webcam; videoTexture: false; debugUIEnabled: false; sourceWidth: 1280; sourceHeight: 960;"
+  >
+
+    <!-- Câmara com localização GPS simulada -->
+    <a-camera
+      gps-camera="simulateLatitude: 51.049; simulateLongitude: -0.723"
+      rotation-reader>
+    </a-camera>
+
+    <!-- CUBO -->
+    <a-box
+      gps-entity-place="latitude: 51.0491; longitude: -0.723"
+      position="0 0 0"
+      scale="2 2 2"
+      color="red">
+    </a-box>
+
+    <!-- ESFERA -->
+    <a-sphere
+      gps-entity-place="latitude: 51.0492; longitude: -0.723"
+      radius="2"
+      color="blue">
+    </a-sphere>
+
+    <!-- CILINDRO -->
+    <a-cylinder
+      gps-entity-place="latitude: 51.0493; longitude: -0.723"
+      radius="1"
+      height="3"
+      color="green">
+    </a-cylinder>
+
+    <!-- CONE -->
+    <a-cone
+      gps-entity-place="latitude: 51.0494; longitude: -0.723"
+      radius-bottom="2"
+      height="4"
+      color="yellow">
+    </a-cone>
+
+    <!-- TEXTO -->
+    <a-text
+      value="Ola Mundo!"
+      gps-entity-place="latitude: 51.0495; longitude: -0.723"
+      scale="6 6 6"
+      align="center"
+      color="white">
+    </a-text>
+
+  </a-scene>
+</body>
 </html>
